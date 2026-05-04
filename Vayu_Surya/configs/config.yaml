@@ -1,0 +1,75 @@
+# Vāyu-Sūrya Configuration
+# AI for Bharat Hackathon — KREDL/KSPDCL Theme
+
+# Reproducibility
+seed: 42
+
+# Hardware
+device: "cuda"
+precision: "16-mixed"   # use "bf16-mixed" if 16-mixed causes NaN on your driver
+
+# Data splits (strict temporal — no leakage)
+train_end: "2022-10-31"
+val_end:   "2022-12-31"
+test_end:  "2023-03-31"
+
+# NWP source
+nwp_source: "open-meteo"
+
+# TFT hyperparameters
+batch_size:         128
+max_epochs:         50
+encoder_length:     168   # 1 week lookback (hours)
+prediction_length:  24    # day-ahead
+hidden_size:        128
+hidden_continuous_size: 64
+attention_head_size: 4
+dropout:            0.1
+learning_rate:      3.0e-4
+gradient_clip_val:  0.1
+early_stop_patience: 7
+reduce_on_plateau_patience: 4
+quantiles: [0.10, 0.25, 0.50, 0.75, 0.90]
+
+# Uncertainty thresholds (% of installed capacity)
+traffic_light_amber_pct: 15
+traffic_light_red_pct:   30
+
+# MC Dropout
+mc_dropout_samples: 30
+
+# Drift monitoring
+drift_alert_threshold: 1.15   # 15% degradation triggers alert
+
+# Cross-plant correlation assumption (for cluster aggregation)
+cross_plant_correlation: 0.3
+
+# Nowcast blend weights
+nowcast_tft_weight:    0.70
+nowcast_actual_weight: 0.30
+
+# Paths
+paths:
+  raw:        "data/raw"
+  synthetic:  "data/synthetic"
+  features:   "data/features"
+  checkpoints: "models/checkpoints"
+  onnx:       "models/onnx"
+  surrogate:  "models/surrogate"
+  outputs:    "outputs"
+  mlflow_uri: "mlruns"
+
+# Fleet definition
+solar_districts:
+  Tumkur:      { n_plants: 10, lat: 13.3379, lon: 77.1173 }
+  Pavagada:    { n_plants: 12, lat: 14.0991, lon: 77.2782 }
+  Chitradurga: { n_plants: 8,  lat: 14.2251, lon: 76.3980 }
+  Bellary:     { n_plants: 8,  lat: 15.1394, lon: 76.9214 }
+  Vijayapura:  { n_plants: 7,  lat: 16.8302, lon: 75.7100 }
+  Yadgir:      { n_plants: 5,  lat: 16.7710, lon: 77.1388 }
+
+wind_districts:
+  Chitradurga_W: { n_plants: 6, lat: 14.2251, lon: 76.3980 }
+  Davangere:     { n_plants: 5, lat: 14.4644, lon: 75.9218 }
+  Gadag:         { n_plants: 5, lat: 15.4164, lon: 75.6270 }
+  Coastal:       { n_plants: 4, lat: 14.8574, lon: 74.1270 }

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  vayu-surya-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: streamlit run dashboard/app.py --server.port=8501 --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONPATH=/app/src
+    restart: unless-stopped
+
+  vayu-surya-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - PYTHONPATH=/app/src
+    restart: unless-stopped
+
+  mlflow-server:
+    image: ghcr.io/mlflow/mlflow:v2.8.1
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /mlruns
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    restart: unless-stopped
