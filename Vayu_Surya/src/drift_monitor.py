@@ -23,8 +23,8 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 DRIFT_ALERT_THRESHOLD = 1.15   # 15% nMAE degradation
 
 
-def _nMAE(y_true, y_pred, capacity):
-    return float(np.mean(np.abs(np.asarray(y_true) - np.asarray(y_pred))) / np.mean(capacity))
+def _nMAE(y_true, y_pred):
+    return float(np.mean(np.abs(np.asarray(y_true) - np.asarray(y_pred))))
 
 
 DRIFT_FEATURE_COLS = [
@@ -107,7 +107,7 @@ def compute_rolling_nMAE(
 
     daily = (
         test_df.groupby(test_df["timestamp"].dt.date)
-        .apply(lambda g: _nMAE(g["capacity_factor"], g[pred_col], g["cap"]))
+        .apply(lambda g: _nMAE(g["capacity_factor"], g[pred_col]))
         .rename("daily_nMAE")
         .reset_index()
         .rename(columns={"timestamp": "date"})

@@ -145,8 +145,11 @@ def plot_shap_waterfall(
         data=features,
         feature_names=feature_names,
     )
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(14, 9))
     shap.waterfall_plot(explanation, max_display=10, show=False)
+    plt.xlabel("SHAP Value (Impact on P50 MW)")
+    plt.tight_layout()
+    plt.subplots_adjust(left=0.25, bottom=0.2)
     out_path = str(OUTPUTS_DIR / f"shap_{plant_id}_h{horizon_h:02d}.png")
     plt.savefig(out_path, dpi=120, bbox_inches="tight")
     plt.close()
@@ -159,9 +162,12 @@ def plot_shap_summary(
     max_display: int = 15,
 ) -> str:
     """Save global SHAP bar chart."""
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(14, 9))
     shap.summary_plot(shap_values, feature_names=feature_names,
                       plot_type="bar", max_display=max_display, show=False)
+    plt.xlabel("mean(|SHAP value|) (Impact on Forecast)")
+    plt.tight_layout()
+    plt.subplots_adjust(left=0.35, bottom=0.25)
     out_path = str(OUTPUTS_DIR / "shap_global_summary.png")
     plt.savefig(out_path, dpi=120, bbox_inches="tight")
     plt.close()

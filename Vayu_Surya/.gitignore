@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Project Specific
+.gemini/
+lightning_logs/
+outputs/*.png
+outputs/*.html
+outputs/*.csv
+data/raw/*.parquet
+data/features/*.parquet
+models/**/*.pkl
+models/**/*.ckpt
+
+# OS
+.DS_Store
+Thumbs.db

@@ -33,10 +33,11 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     padding: 1.2rem 1.5rem;
     margin: 0.4rem 0;
 }
-.confidence-green  { background:#1a3a2a; border-left:4px solid #2ECC71; padding:0.8rem 1rem; border-radius:8px; }
-.confidence-amber  { background:#3a2e1a; border-left:4px solid #F39C12; padding:0.8rem 1rem; border-radius:8px; }
-.confidence-red    { background:#3a1a1a; border-left:4px solid #E74C3C; padding:0.8rem 1rem; border-radius:8px; }
+.confidence-green  { background:#1a3a2a; border-left:4px solid #2ECC71; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
+.confidence-amber  { background:#3a2e1a; border-left:4px solid #F39C12; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
+.confidence-red    { background:#3a1a1a; border-left:4px solid #E74C3C; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
 .stTabs [data-baseweb="tab"] { font-size:0.9rem; font-weight:600; }
+.leaflet-control-attribution { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -340,8 +341,7 @@ with tab3:
         eval_df.style.format({
             "nMAE": "{:.3f}", "nRMSE": "{:.3f}",
             "coverage": "{:.3f}", "ramp_f1": "{:.3f}", "skill": "{:.3f}",
-        }).highlight_max(subset=["skill","ramp_f1"], color="#1a3a2a")
-         .highlight_min(subset=["nMAE","nRMSE"], color="#1a3a2a"),
+        }, na_rep="—"),
         use_container_width=True,
     )
 
@@ -498,7 +498,7 @@ with tab5:
     drift_report = ROOT / "outputs" / "drift_report.html"
     if drift_report.exists():
         st.markdown("#### Evidently AI Drift Report")
-        with open(drift_report) as f:
+        with open(drift_report, encoding="utf-8") as f:
             st.components.v1.html(f.read(), height=600, scrolling=True)
     else:
         st.info("Run drift_monitor.py to generate the Evidently drift report.")
