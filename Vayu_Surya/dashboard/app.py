@@ -24,19 +24,19 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-.main { background: #0f1117; }
-.stApp { background: linear-gradient(135deg, #0f1117 0%, #1a1f2e 100%); }
+.main, .stApp { background: #000000 !important; }
+.main h1, .main h2, .main h3, .main h4, .main p, .main span, .main label, .main .stMetric, .main .stCaption { color: #ffffff !important; }
 .metric-card {
-    background: linear-gradient(135deg, #1e2a3a, #243447);
-    border: 1px solid #2d4060;
+    background: #111111;
+    border: 1px solid #333333;
     border-radius: 12px;
     padding: 1.2rem 1.5rem;
     margin: 0.4rem 0;
 }
-.confidence-green  { background:#1a3a2a; border-left:4px solid #2ECC71; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
-.confidence-amber  { background:#3a2e1a; border-left:4px solid #F39C12; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
-.confidence-red    { background:#3a1a1a; border-left:4px solid #E74C3C; padding:0.8rem 1rem; border-radius:8px; color: #ffffff; }
-.stTabs [data-baseweb="tab"] { font-size:0.9rem; font-weight:600; }
+.confidence-green  { background:#002200; border-left:4px solid #2ECC71; padding:0.8rem 1rem; border-radius:8px; color: #ffffff !important; }
+.confidence-amber  { background:#221100; border-left:4px solid #F39C12; padding:0.8rem 1rem; border-radius:8px; color: #ffffff !important; }
+.confidence-red    { background:#220000; border-left:4px solid #E74C3C; padding:0.8rem 1rem; border-radius:8px; color: #ffffff !important; }
+.stTabs [data-baseweb="tab"] { font-size:0.9rem; font-weight:600; color: #ffffff !important; }
 .leaflet-control-attribution { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
