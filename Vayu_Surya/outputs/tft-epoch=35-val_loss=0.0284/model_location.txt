@@ -1,1 +1,0 @@
-Model Location: C:\Users\Admin\OneDrive\Documents\Vayu_Surya_main\Vayu_Surya\models\checkpoints\tft-epoch=35-val_loss=0.0284.ckpt

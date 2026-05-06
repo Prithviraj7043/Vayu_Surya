@@ -2,19 +2,21 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.venv/
+env/
 venv/
-.env
+ENV/
 
-# Project Specific
-.gemini/
-lightning_logs/
+# Streamlit
+.streamlit/
+! .streamlit/config.toml
+
+# Data & Models (if they become large, but currently they are small)
+# data/
+# models/
 outputs/*.png
 outputs/*.html
 outputs/*.csv
-data/raw/*.parquet
-data/features/*.parquet
-models/**/*.pkl
-models/**/*.ckpt
 
 # OS
 .DS_Store

@@ -1,1 +1,0 @@
-# Vāyu-Sūrya source package
